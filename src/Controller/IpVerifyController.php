@@ -72,6 +72,7 @@ class IpVerifyController implements ContainerInjectableInterface
             "validationMsg" => $validationMsg,
             "domain" => $domain,
             "title" => $title,
+            "ip" => $ipAddress,
         ]);
 
         return $page->render();
