@@ -13,9 +13,11 @@ namespace Anax\View;
 </form>
 <a href="json_ip/?ip=8.8.8.8">API svar</a>
 
-<?php if ($validationMsg) : ?>
+<?php if ($protocol) : ?>
     <div>
-        <p><?= $validationMsg; ?></p>
+        <p>Ip: <?= $ip; ?></p>
+        <p>Giltig ip adress: <?= $isValid; ?></p>
+        <p>Protokoll: <?= $protocol; ?></p>
         <p>Domän: <?= $domain; ?></p>
         <a href="json_ip/?ip=<?= $ip ?>">API svar</a>
     </div>

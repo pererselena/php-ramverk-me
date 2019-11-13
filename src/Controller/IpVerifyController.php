@@ -60,19 +60,22 @@ class IpVerifyController implements ContainerInjectableInterface
         $title = "Ip Validering";
         $ipAddress = $this->di->session->get("ipAddress");
         if ($ipAddress) {
-            $validationMsg = $this->ip->getIpInfo($ipAddress);
+            $protocol = $this->ip->getIpInfo($ipAddress);
+            $isValid = $this->ip->ipVerify($ipAddress);
             $domain = $this->ip->getDomain($ipAddress);
             $this->di->session->set("ipAddress", null);
         } else {
-            $validationMsg = "";
+            $protocol = "";
             $domain = "";
+            $isValid = "";
         }
 
         $page->add("ipVerify/index", [
-            "validationMsg" => $validationMsg,
+            "protocol" => $protocol,
             "domain" => $domain,
             "title" => $title,
             "ip" => $ipAddress,
+            "isValid" => $isValid,
         ]);
 
         return $page->render();
