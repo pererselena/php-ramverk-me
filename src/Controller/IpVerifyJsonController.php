@@ -56,17 +56,21 @@ class IpVerifyJsonController implements ContainerInjectableInterface
     {
         $ipAddress = $this->di->request->getGet("ip");
         if ($ipAddress) {
-            $validationMsg = $this->ip->getIpInfo($ipAddress);
+            $protocol = $this->ip->getIpInfo($ipAddress);
+            $isValid = $this->ip->ipVerify($ipAddress);
             $domain = $this->ip->getDomain($ipAddress);
         } else {
-            $validationMsg = "";
+            $protocol = "";
             $domain = "";
+            $isValid = false;
         }
 
         
         $json = [
-            "message" => $validationMsg,
+            "protocol" => $protocol,
             "domain" => $domain,
+            "ip" => $ipAddress,
+            "isValid" => $isValid,
         ];
         return [$json];
     }
