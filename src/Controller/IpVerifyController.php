@@ -18,7 +18,7 @@ use Anax\Commons\ContainerInjectableTrait;
  *
  * @SuppressWarnings(PHPMD.TooManyPublicMethods)
  */
-class SampleController implements ContainerInjectableInterface
+class IpVerifyController implements ContainerInjectableInterface
 {
     use ContainerInjectableTrait;
 
@@ -41,7 +41,7 @@ class SampleController implements ContainerInjectableInterface
     public function initialize() : void
     {
         // Use to initialise member variables.
-        $this->db = "active";
+        $this->ip = new \Anax\IpVerify\IpVerify();
     }
 
 
@@ -52,58 +52,27 @@ class SampleController implements ContainerInjectableInterface
      * ANY METHOD mountpoint/
      * ANY METHOD mountpoint/index
      *
-     * @return string
+     * @return object
      */
-    public function indexAction() : string
+    public function indexAction() : object
     {
-        // Deal with the action and return a response.
-        return __METHOD__ . ", \$db is {$this->db}";
+        $page = $this->di->get("page");
+        $title = "Ip Validering";
+        $ipAddress = $this->di->session->get("ipAddress");
+        if ($ipAddress) {
+            $resultset = $this->ip->ipVerify($ipAddress);
+            //$this->di->session->set("ipAddress", null);
+        } else {
+            $resultset = "";
+        }
+
+        $page->add("ipVerify/index", [
+            "resultset" => $resultset,
+            "title" => $title,
+        ]);
+
+        return $page->render();
     }
-
-
-
-    /**
-     * This sample method dumps the content of $di.
-     * GET mountpoint/dump-app
-     *
-     * @return string
-     */
-    public function dumpDiActionGet() : string
-    {
-        // Deal with the action and return a response.
-        $services = implode(", ", $this->di->getServices());
-        return __METHOD__ . "<p>\$di contains: $services";
-    }
-
-
-
-    /**
-     * Add the request method to the method name to limit what request methods
-     * the handler supports.
-     * GET mountpoint/info
-     *
-     * @return string
-     */
-    public function infoActionGet() : string
-    {
-        // Deal with the action and return a response.
-        return __METHOD__ . ", \$db is {$this->db}";
-    }
-
-
-
-    /**
-     * This sample method action it the handler for route:
-     * GET mountpoint/create
-     *
-     * @return string
-     */
-    public function createActionGet() : string
-    {
-        // Deal with the action and return a response.
-        return __METHOD__ . ", \$db is {$this->db}";
-    }
-
 
 
     /**
@@ -112,10 +81,12 @@ class SampleController implements ContainerInjectableInterface
      *
      * @return string
      */
-    public function createActionPost() : string
+    public function indexActionPost() : string
     {
-        // Deal with the action and return a response.
-        return __METHOD__ . ", \$db is {$this->db}";
+        $ipAddress = $this->di->request->getPost("ipAddress");
+        $this->di->session->set("ipAddress", $ipAddress);
+
+        return $this->di->response->redirect("verify_ip/index");
     }
 
 
