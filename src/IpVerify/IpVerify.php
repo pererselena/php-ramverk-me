@@ -34,16 +34,13 @@ class IpVerify
 
     public function getIpInfo(string $ip)
     {
-        if ($this->ipVerify($ip)) {
-            if (filter_var($ip, FILTER_VALIDATE_IP, FILTER_FLAG_IPV4)) {
-                return "$ip is a valid IPV4 address";
-            } elseif (filter_var($ip, FILTER_VALIDATE_IP, FILTER_FLAG_IPV6)) {
-                return "$ip is a valid IPV6 address";
-            } else {
-                return "$ip is not a valid IP address";
-            }
+
+        if (filter_var($ip, FILTER_VALIDATE_IP, FILTER_FLAG_IPV4)) {
+            return "IPV4";
+        } elseif (filter_var($ip, FILTER_VALIDATE_IP, FILTER_FLAG_IPV6)) {
+            return "IPV6";
         } else {
-            return "$ip är inte giltig ip adress";
+            return "n/a";
         }
     }
 
@@ -66,6 +63,5 @@ class IpVerify
         } else {
             return "n/a";
         }
-        
     }
 }
