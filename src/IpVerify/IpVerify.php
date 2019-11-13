@@ -13,10 +13,25 @@ class IpVerify
     /**
      * Validates ip address.
      *
+     * @return bool
+     */
+
+    public function ipVerify(string $ip)
+    {
+        if (filter_var($ip, FILTER_VALIDATE_IP)) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    /**
+     * Validates ip address.
+     *
      * @return string
      */
 
-    public function ipVerify(str $ip)
+    public function getIpInfo(string $ip)
     {
         if (filter_var($ip, FILTER_VALIDATE_IP, FILTER_FLAG_IPV4)) {
             return "$ip is a valid IPV4 address";
@@ -34,7 +49,7 @@ class IpVerify
      * @return string
      */
 
-    public function getDomain(str $ip)
+    public function getDomain(string $ip)
     {
 
         $host = gethostbyaddr($ip);

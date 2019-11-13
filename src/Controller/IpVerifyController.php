@@ -60,14 +60,22 @@ class IpVerifyController implements ContainerInjectableInterface
         $title = "Ip Validering";
         $ipAddress = $this->di->session->get("ipAddress");
         if ($ipAddress) {
-            $resultset = $this->ip->ipVerify($ipAddress);
-            //$this->di->session->set("ipAddress", null);
+            if ($this->ip->ipVerify($ipAddress)) {
+                $validationMsg = $this->ip->getIpInfo($ipAddress);
+                $domain = $this->ip->getDomain($ipAddress);
+            } else {
+                $validationMsg = "$ipAddress är inte giltig ip adress";
+                $domain = "n/a";
+            }
+            $this->di->session->set("ipAddress", null);
         } else {
-            $resultset = "";
+            $validationMsg = "";
+            $domain = "";
         }
 
         $page->add("ipVerify/index", [
-            "resultset" => $resultset,
+            "validationMsg" => $validationMsg,
+            "domain" => $domain,
             "title" => $title,
         ]);
 
@@ -87,104 +95,5 @@ class IpVerifyController implements ContainerInjectableInterface
         $this->di->session->set("ipAddress", $ipAddress);
 
         return $this->di->response->redirect("verify_ip/index");
-    }
-
-
-
-    /**
-     * This sample method action takes one argument:
-     * GET mountpoint/argument/<value>
-     *
-     * @param mixed $value
-     *
-     * @return string
-     */
-    public function argumentActionGet($value) : string
-    {
-        // Deal with the action and return a response.
-        return __METHOD__ . ", \$db is {$this->db}, got argument '$value'";
-    }
-
-
-
-    /**
-     * This sample method action takes zero or one argument and you can use - as a separator which will then be removed:
-     * GET mountpoint/defaultargument/
-     * GET mountpoint/defaultargument/<value>
-     * GET mountpoint/default-argument/
-     * GET mountpoint/default-argument/<value>
-     *
-     * @param mixed $value with a default string.
-     *
-     * @return string
-     */
-    public function defaultArgumentActionGet($value = "default") : string
-    {
-        // Deal with the action and return a response.
-        return __METHOD__ . ", \$db is {$this->db}, got argument '$value'";
-    }
-
-
-
-    /**
-     * This sample method action takes two typed arguments:
-     * GET mountpoint/typed-argument/<string>/<int>
-     *
-     * NOTE. Its recommended to not use int as type since it will still
-     * accept numbers such as 2hundred givving a PHP NOTICE. So, its better to
-     * deal with type check within the action method and throuw exceptions
-     * when the expected type is not met.
-     *
-     * @param mixed $value with a default string.
-     *
-     * @return string
-     */
-    public function typedArgumentActionGet(string $str, int $int) : string
-    {
-        // Deal with the action and return a response.
-        return __METHOD__ . ", \$db is {$this->db}, got string argument '$str' and int argument '$int'.";
-    }
-
-
-
-    /**
-     * This sample method action takes a variadic list of arguments:
-     * GET mountpoint/variadic/
-     * GET mountpoint/variadic/<value>
-     * GET mountpoint/variadic/<value>/<value>
-     * GET mountpoint/variadic/<value>/<value>/<value>
-     * etc.
-     *
-     * @param array $value as a variadic parameter.
-     *
-     * @return string
-     */
-    public function variadicActionGet(...$value) : string
-    {
-        // Deal with the action and return a response.
-        return __METHOD__ . ", \$db is {$this->db}, got '" . count($value) . "' arguments: " . implode(", ", $value);
-    }
-
-
-
-    /**
-     * Adding an optional catchAll() method will catch all actions sent to the
-     * router. You can then reply with an actual response or return void to
-     * allow for the router to move on to next handler.
-     * A catchAll() handles the following, if a specific action method is not
-     * created:
-     * ANY METHOD mountpoint/**
-     *
-     * @param array $args as a variadic parameter.
-     *
-     * @return mixed
-     *
-     * @SuppressWarnings(PHPMD.UnusedFormalParameter)
-     */
-    public function catchAll(...$args)
-    {
-        // Deal with the request and send an actual response, or not.
-        //return __METHOD__ . ", \$db is {$this->db}, got '" . count($args) . "' arguments: " . implode(", ", $args);
-        return;
     }
 }
