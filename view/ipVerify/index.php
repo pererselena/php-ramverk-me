@@ -1,4 +1,5 @@
 <?php
+
 namespace Anax\View;
 
 ?>
@@ -10,10 +11,12 @@ namespace Anax\View;
         <input class="buttons_input" type="submit" name="ipVerify" value="Validera" />
     </p>
 </form>
+<a href="json_ip/?ip=8.8.8.8">API svar</a>
 
 <?php if ($validationMsg) : ?>
     <div>
         <p><?= $validationMsg; ?></p>
         <p>Domän: <?= $domain; ?></p>
+        <a href="json_ip/?ip=<?= $ip ?>">API svar</a>
     </div>
 <?php endif ?>
