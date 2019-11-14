@@ -4,22 +4,15 @@ title: "Min fina titel"
 Min me-sida i kursen ramverk1
 =========================
 
-Detta innehåll är skrivet i markdown och du hittar innehållet i filen `content/index.md`.
 
 [FIGURE src="image/me.jpg?w=400" class="right" caption="Bild på mig"]
 
-Detta är min me-sida i kursen. Denna sidan innehåller en presentation av mig själv. Underhåll denna sidan under hela kursen och uppdatera den efter hand och behov.
+Mitt namn är Elena Perers. Född och uppvuxen i Barnaul, en stad som ligger Sydvästra Sibirien i Ryssland. Där växte jag upp, gick i skolan och universitetet.
 
-Så, en presentation en bra början. Skriv några ord om dig själv. Jag börjar.
+Jag läste sociologi och juridik på Altai State University i Barnaul, Ryssland.
 
-Mitt namn är Mikael Roos. Född och uppvuxen i Bankeryd, Småland, strax utanför Jönköping, i ett villaområde som byggdes upp samtidigt som vi flyttade in där. Jag gillade landhockey och har spelat bandy och hockey samt gått bowlinggymnasiet i Nässjö. Jag har varit städare, diskare, kallskänka, servitör och kock. På ett bananskal landade jag i Ronneby när jag började högskolan 1990 där och nu är jag kvar med fru, barn och så vidare.
+Mitt första möte med programmering fick jag i högstadiet då vi fick lära oss basic. Det kändes för komplicerat för mig på den tiden och bestämde mig för att inte bli utvecklare. Men nu sitter jag här och studerar webbprogramering. Intresset väcktes för inte så länge sedan när jag flyttade till Sverige bestämde jag mig för att byta yrke helt. Jag började bli nyfiken på hur fungerar webbsidor och började titta på video kurser om HTML, CSS och JS och blev förvånad att det är inte så komplicerat och det är inte omöjligt att lära sig.
 
-Programmering har alltid intresserat mig sedan 13-årsåldern och min första dator var en Spectravideo 328 med bandspelare.
+Vill du läsa mer om vad jag jobbat med så kan du kika på min [Linkedin-profil](https://www.linkedin.com/in/elena-perers/).
 
-Om jag skall nämna någon hobby, förutom webbprogrammering, så får det bli att bära sten på sommarstugetomten, och det finns sten så det räcker och blir över.
-
-Till och från får jag för mig att börja på lite hobbies, ett år satsade jag på pokerspel, ett annat år var det geocaching och sedan turfing. Nu ligger jag lågt med hobbies, men något kanske dyker upp...?
-
-Vi syns och hörs i forum och chatt!
-
-/Mikael
+/Elena Perers
