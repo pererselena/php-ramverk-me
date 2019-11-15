@@ -13,6 +13,7 @@
 html {
     overflow-y: scroll;  // Always show scrollbar to avoid flickr
     background-color: @bgColorHtml;
+    height: 100%;
 }
 
 body {
@@ -21,6 +22,24 @@ body {
     color: @colorBody;
     background-color: @bgColorBody;
     #desinax-hgrid.font(@fontSizeBody);
+    height: 100%;
+    width: 100%;
+}
+
+.inner-wrap .row {
+    margin: 0;
+    max-width: 100%;
+}
+
+.row {
+    max-width: 100%;
+}
+
+.wrap-all {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    min-height: 100%;
 }
 
 // Affects all basic typographic elements
@@ -29,4 +48,8 @@ body {
 // Responsive images
 img {
     max-width: 100%;
+}
+
+select {
+    width: 80%;
 }
