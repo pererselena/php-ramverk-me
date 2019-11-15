@@ -18,7 +18,7 @@ return [
             "htmlClass" => null,
             "lang" => "sv",
             "stylesheets" => [
-                "css/dbwebb-se.min.css",
+                "css/dbwebb-se_v2.min.css",
             ],
             "javascripts" => [
                 "js/responsive-menu.js",
@@ -28,15 +28,6 @@ return [
 
     // These views are always loaded into the collection of views.
     "views" => [
-        [
-            "region" => "header-col-1",
-            "template" => "anax/v2/header/site_logo",
-            "data" => [
-                "class" => "large",
-                "siteLogo"      => "image/theme/leaf_256x256.png",
-                "siteLogoAlt"   => "Löv",
-            ],
-        ],
         [
             "region" => "header-col-1",
             "template" => "anax/v2/header/site_logo_text",
