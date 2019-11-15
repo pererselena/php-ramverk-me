@@ -5425,18 +5425,6 @@ a:hover {
  * @TODO check and clean up and explain what this style does.
  */
 /** --------------------------------------------------------------
- * Flash
- */
-.region-flash img {
-  width: 100%;
-  height: 30em;
-}
-.outer-wrap-flash {
-  flex-shrink: 0;
-  height: 30em;
-  width: 100%;
-}
-/** --------------------------------------------------------------
  * Blog
  */
 .blog-list header h1,
@@ -5596,6 +5584,28 @@ fieldset {
 .LI-profile-badge .LI-badge-container.vertical.light {
   min-height: 440px;
 }
+/** --------------------------------------------------------------
+ * Flash
+ */
+.region-flash img {
+  width: 100%;
+  height: 30em;
+}
+.outer-wrap-flash {
+  flex-shrink: 0;
+  height: 30em;
+  width: 100%;
+}
+.outer-wrap-header {
+  flex-shrink: 0;
+}
+.outer-wrap-main {
+  flex-shrink: 0;
+  flex-grow: 1;
+}
+.outer-wrap-footer {
+  flex-shrink: 0;
+}
 /**
  * Base style to affect HTML elements on a general scale.
  */
@@ -5607,8 +5617,8 @@ fieldset {
 }
 html {
   overflow-y: scroll;
-  background-color: #424242;
   height: 100%;
+  width: 100%;
 }
 body {
   margin: 0;
@@ -5631,6 +5641,8 @@ body {
   flex-direction: column;
   align-items: stretch;
   min-height: 100%;
+  height: 100%;
+  width: 100%;
 }
 h1,
 h2,
@@ -6967,3 +6979,33 @@ a.rm-button.rm-clicked .rm-button-face-2 {
 /**
  * My settings.
  */
+/*!
+ * Stylesheet for ramverk1.
+ *
+ * This stylesheet is for the ramverk1 course. Fill it with style
+ * to style up the website so it is useable.
+ */
+body {
+  width: 100%;
+  display: block;
+  box-sizing: border-box;
+  background-image: url("../img/bg.jpg");
+  background-attachment: fixed;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+.region-flash img {
+  display: none;
+}
+.outer-wrap-header {
+  background-color: rgba(245, 245, 245, 0.835);
+  position: fixed;
+  width: 100%;
+}
+.outer-wrap-main {
+  background-color: #f5f5f5;
+}
+.outer-wrap-footer {
+  background-color: rgba(61, 62, 63, 0.678);
+}
