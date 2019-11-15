@@ -3,6 +3,7 @@
 namespace Anax\View;
 
 ?>
+
 <h2><?= $title ?></h2>
 <h3>Validera genom html svar</h3>
 <form class="ip_verify" method="post">

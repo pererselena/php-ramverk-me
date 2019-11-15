@@ -69,7 +69,7 @@ class IpVerifyController implements ContainerInjectableInterface
             $domain = "";
             $isValid = "";
         }
-
+        
         $page->add("ipVerify/index", [
             "protocol" => $protocol,
             "domain" => $domain,
