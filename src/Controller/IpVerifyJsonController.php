@@ -4,6 +4,7 @@ namespace Anax\Controller;
 
 use Anax\Commons\ContainerInjectableInterface;
 use Anax\Commons\ContainerInjectableTrait;
+use Anax\IpVerify\IpVerify;
 
 // use Anax\Route\Exception\ForbiddenException;
 // use Anax\Route\Exception\NotFoundException;
@@ -25,8 +26,6 @@ class IpVerifyJsonController implements ContainerInjectableInterface
     /**
      * @var string $db a sample member variable that gets initialised
      */
-    private $db = "not active";
-
 
 
     /**
@@ -39,7 +38,7 @@ class IpVerifyJsonController implements ContainerInjectableInterface
     public function initialize() : void
     {
         // Use to initialise member variables.
-        $this->ip = new \Anax\IpVerify\IpVerify();
+        $this->ip = new IpVerify();
     }
 
 

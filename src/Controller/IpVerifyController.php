@@ -4,6 +4,7 @@ namespace Anax\Controller;
 
 use Anax\Commons\ContainerInjectableInterface;
 use Anax\Commons\ContainerInjectableTrait;
+use Anax\IpVerify\IpVerify;
 
 // use Anax\Route\Exception\ForbiddenException;
 // use Anax\Route\Exception\NotFoundException;
@@ -27,10 +28,6 @@ class IpVerifyController implements ContainerInjectableInterface
     /**
      * @var string $db a sample member variable that gets initialised
      */
-    private $db = "not active";
-
-
-
     /**
      * The initialize method is optional and will always be called before the
      * target method/action. This is a convienient method where you could
@@ -41,7 +38,7 @@ class IpVerifyController implements ContainerInjectableInterface
     public function initialize() : void
     {
         // Use to initialise member variables.
-        $this->ip = new \Anax\IpVerify\IpVerify();
+        $this->ip = new IpVerify();
     }
 
 
@@ -86,9 +83,9 @@ class IpVerifyController implements ContainerInjectableInterface
      * This sample method action it the handler for route:
      * POST mountpoint/create
      *
-     * @return string
+     * @return object
      */
-    public function indexActionPost() : string
+    public function indexActionPost() : object
     {
         $ipAddress = $this->di->request->getPost("ipAddress");
         $this->di->session->set("ipAddress", $ipAddress);
