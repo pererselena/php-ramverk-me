@@ -23,7 +23,7 @@ namespace Anax\View;
 </form>
 <a href="json_ip/?ip=8.8.8.8">Test API rätt svar</a>
 <a href="json_ip/?ip=8.8.8">Test API fel svar</a>
-
+<p>För att använda APIt använd följande URL: http://www.student.bth.se/~elpr18/dbwebb-kurser/ramverk1/me/redovisa/htdocs/json_ip/?ip=8.8.8.8 där det efter ip?= byts ut mot den IP address man vill validera.</p>
 <?php if ($protocol) : ?>
     <div>
         <p>Ip: <?= $ip; ?></p>
