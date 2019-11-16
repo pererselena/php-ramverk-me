@@ -54,12 +54,7 @@ class IpVerify
     {
         if ($this->ipVerify($ipAdress)) {
             $host = gethostbyaddr($ipAdress);
-
-            if ($host == false) {
-                return "Saknas";
-            } else {
-                return $host;
-            }
+            return $host;
         } else {
             return "n/a";
         }
