@@ -70,5 +70,7 @@ class IpVerifyControllerTest extends TestCase
         $res = $this->controller->indexActionPost();
         $this->assertIsObject($res);
         $this->assertInstanceOf("Anax\Response\Response", $res);
+        $request->setGet("ip", null);
+        $this->assertEquals(null, $response->getBody());
     }
 }

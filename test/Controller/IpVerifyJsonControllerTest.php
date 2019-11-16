@@ -55,6 +55,7 @@ class IpVerifyJsonControllerTest extends TestCase
 
         $json = $res[0];
         $this->assertFalse($json["isValid"]);
+        $request->setGet("ip", "8.8.8.8");
     }
 
     /**

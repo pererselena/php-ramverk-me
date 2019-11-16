@@ -68,7 +68,6 @@ class IpVerifyTest extends TestCase
     {
         $ipVerify = new IpVerify\IpVerify();
         $res = $ipVerify->getDomain("8.8.8.8");
-        var_dump($res);
         $this->assertEquals($res, "dns.google");
     }
 
