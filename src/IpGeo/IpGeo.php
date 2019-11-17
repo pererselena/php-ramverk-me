@@ -57,12 +57,18 @@ class IpGeo
             $this->output["isValid"] = true;
             $this->output["protocol"] = $this->ipVerify->getIpInfo($ipAdress);
             $this->output["domain"] = $this->ipVerify->getDomain($ipAdress);
-            $this->output["long"] = $geoData["longitude"];
-            $this->output["lat"] = $geoData["latitude"];
+            if ($geoData["longitude"] && $geoData["latitude"]) {
+                $this->output["map"] = $this->createMapLink($geoData["longitude"], $geoData["latitude"]);
+                $this->output["long"] = $geoData["longitude"];
+                $this->output["lat"] = $geoData["latitude"];
+            } else {
+                $this->output["map"] = "Missing";
+                $this->output["long"] = "Missing";
+                $this->output["lat"] = "Missing";
+            }           
             $this->output["country"] = $geoData["country_name"];
             $this->output["city"] = $geoData["city"];
             $this->output["flag"] = $geoData["location"]["country_flag"];
-            $this->output["map"] = $this->createMapLink($geoData["longitude"], $geoData["latitude"]);
 
             return $this->output;
         } else {
