@@ -34,9 +34,9 @@ return [
             "title" => "Verktyg och möjligheter för utveckling.",
         ],
         [
-            "text" => "IP validering",
-            "url" => "verify_ip",
-            "title" => "IP validering.",
+            "text" => "Uppgifter",
+            "url" => "uppgifter",
+            "title" => "Uppgifter från kursmomenten.",
         ],
     ],
 ];
