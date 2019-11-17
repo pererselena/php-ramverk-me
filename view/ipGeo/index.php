@@ -7,7 +7,7 @@ namespace Anax\View;
 <h2><?= $title ?></h2>
 <h3>Validera genom html svar</h3>
 <form class="ip_verify" method="post">
-    <input type="text" name="ipAddress" placeholder="Ip adress" />
+    <input type="text" name="ipAddress" placeholder="Ip adress" value="<?= $ip ?>" />
     <br>
     <p>
         <input class="buttons_input" type="submit" name="ipVerify" value="Validera" />

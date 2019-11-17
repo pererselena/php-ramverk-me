@@ -60,11 +60,13 @@ class IpGeoController implements ContainerInjectableInterface
             $ipGeoInfo = $this->ip->getLocation($ipAddress);
         } else {
             $ipGeoInfo = "";
+            $ipAddress = $this->di->get("request")->getServer("REMOTE_ADDR");
         }
         
         
         $page->add("ipGeo/index", [
             "geoInfo" => $ipGeoInfo,
+            "ip" => $ipAddress,
             "title" => $title,
         ]);
 
