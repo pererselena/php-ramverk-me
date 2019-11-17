@@ -86,9 +86,9 @@ return [
                         "title" => "IP validering.",
                     ],
                     [
-                        "text" => "Kmom03",
-                        "url" => "redovisning/kmom03",
-                        "title" => "Redovisning för kmom03.",
+                        "text" => "IP Geolokalisering",
+                        "url" => "geo_ip",
+                        "title" => "Geolokalisering av ip-adress.",
                     ],
                 ],
             ],
