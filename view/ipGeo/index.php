@@ -27,7 +27,7 @@ namespace Anax\View;
 <?php if ($geoInfo) : ?>
     <div>
         <p>Ip: <?= $geoInfo["ip"]; ?></p>
-        <p>Giltig ip adress: <?= $geoInfo["isValid"]; ?></p>
+        <p>Giltig ip adress: <?= $geoInfo["isValid"] ? "Godkänd" : "Ej godkänd"; ?></p>
         <p>Protokoll: <?= $geoInfo["protocol"]; ?></p>
         <p>Domän: <?= $geoInfo["domain"]; ?></p>
         <p>Geografisk position: <?= $geoInfo["lat"]; ?>, <?= $geoInfo["long"]; ?></p>
