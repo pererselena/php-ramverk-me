@@ -19,7 +19,7 @@ class IpGeo
     /**
      * Constructor for object.
      *
-     * 
+     *
      */
 
     public function __construct()
@@ -45,7 +45,7 @@ class IpGeo
     /**
      * Get locaation.
      *
-     * @return bool
+     * @return object
      */
 
     public function getLocation(string $ipAdress)
@@ -67,7 +67,7 @@ class IpGeo
                 $this->output["map"] = "Missing";
                 $this->output["long"] = "Missing";
                 $this->output["lat"] = "Missing";
-            }           
+            }
             $this->output["country"] = $geoData["country_name"];
             $this->output["city"] = $geoData["city"];
             $this->output["flag"] = $geoData["location"]["country_flag"];
@@ -124,7 +124,7 @@ class IpGeo
         $long1 = $long + $longOffset;
         $long2 = $long - $longOffset;
         $box = "$long1%2C$lat1%2C$long2%2C$lat2";
-        
+
         return $box;
     }
 }
