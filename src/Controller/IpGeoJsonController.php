@@ -57,7 +57,14 @@ class IpGeoJsonController implements ContainerInjectableInterface
         if ($ipAddress) {
             $ipGeoInfo = $this->ip->getLocation($ipAddress);
         } else {
-            $ipAddress = $this->di->get("request")->getServer("REMOTE_ADDR");
+            $req = $this->di->get("request");
+            if (!empty($req->getServer("HTTP_CLIENT_IP"))) {
+                $ipAddress = $req->getServer("HTTP_CLIENT_IP");
+            } elseif (!empty($req->getServer("HTTP_X_FORWARDED_FOR"))) {
+                $ipAddress = $req->getServer("HTTP_X_FORWARDED_FOR");
+            } else {
+                $ipAddress = $req->getServer("REMOTE_ADDR");
+            }
             $ipGeoInfo = $this->ip->getLocation($ipAddress);
         }
 

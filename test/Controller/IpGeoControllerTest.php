@@ -48,6 +48,32 @@ class IpGeoControllerTest extends TestCase
     /**
      * Test the route "index".
      */
+    public function testIndexActionClientIP()
+    {
+        $request = $this->di->get("request");
+        $request->setServer("HTTP_CLIENT_IP", "127.0.0.1");
+        $res = $this->controller->indexAction();
+        $this->assertIsObject($res);
+        $this->assertInstanceOf("Anax\Response\Response", $res);
+        $this->assertContains("<h2>Ip Geolokalisering</h2>", $res->getBody());
+    }
+
+    /**
+     * Test the route "index".
+     */
+    public function testIndexActionForwaredIP()
+    {
+        $request = $this->di->get("request");
+        $request->setServer("HTTP_X_FORWARDED_FOR", "127.0.0.1");
+        $res = $this->controller->indexAction();
+        $this->assertIsObject($res);
+        $this->assertInstanceOf("Anax\Response\Response", $res);
+        $this->assertContains("<h2>Ip Geolokalisering</h2>", $res->getBody());
+    }
+
+    /**
+     * Test the route "index".
+     */
     public function testIndexActionWithIp()
     {
         $request = $this->di->get("request");
@@ -57,6 +83,8 @@ class IpGeoControllerTest extends TestCase
         $this->assertInstanceOf("Anax\Response\Response", $res);
         $this->assertContains("8.8.8.8", $res->getBody());
     }
+
+    
 
     /**
      * Test the route "index".

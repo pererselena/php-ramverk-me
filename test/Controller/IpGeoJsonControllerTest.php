@@ -74,6 +74,34 @@ class IpGeoJsonControllerTest extends TestCase
     /**
      * Test the route "index".
      */
+    public function testIndexActionClientIp()
+    {
+        $request = $this->di->get("request");
+        $request->setServer("HTTP_CLIENT_IP", "127.0.0.1");
+        $res = $this->controller->indexActionGet();
+        $this->assertIsArray($res);
+
+        $json = $res[0];
+        $this->assertTrue($json["geoInfo"]["isValid"]);
+    }
+
+    /**
+     * Test the route "index".
+     */
+    public function testIndexActionForwaredIp()
+    {
+        $request = $this->di->get("request");
+        $request->setServer("HTTP_X_FORWARDED_FOR", "127.0.0.1");
+        $res = $this->controller->indexActionGet();
+        $this->assertIsArray($res);
+
+        $json = $res[0];
+        $this->assertTrue($json["geoInfo"]["isValid"]);
+    }
+
+    /**
+     * Test the route "index".
+     */
     public function testIndexActionWithIp()
     {
         $request = $this->di->get("request");

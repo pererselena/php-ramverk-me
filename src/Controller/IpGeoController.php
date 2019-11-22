@@ -35,7 +35,7 @@ class IpGeoController implements ContainerInjectableInterface
      *
      * @return void
      */
-    public function initialize() : void
+    public function initialize(): void
     {
         // Use to initialise member variables.
         $this->ip = new IpGeo();
@@ -51,7 +51,7 @@ class IpGeoController implements ContainerInjectableInterface
      *
      * @return object
      */
-    public function indexAction() : object
+    public function indexAction(): object
     {
         $page = $this->di->get("page");
         $title = "Ip Geolokalisering";
@@ -59,11 +59,18 @@ class IpGeoController implements ContainerInjectableInterface
         if ($ipAddress) {
             $ipGeoInfo = $this->ip->getLocation($ipAddress);
         } else {
-            $ipAddress = $this->di->get("request")->getServer("REMOTE_ADDR");
+            $req = $this->di->get("request");
+            if (!empty($req->getServer("HTTP_CLIENT_IP"))) {
+                $ipAddress = $req->getServer("HTTP_CLIENT_IP");
+            } elseif (!empty($req->getServer("HTTP_X_FORWARDED_FOR"))) {
+                $ipAddress = $req->getServer("HTTP_X_FORWARDED_FOR");
+            } else {
+                $ipAddress = $req->getServer("REMOTE_ADDR");
+            }
             $ipGeoInfo = $this->ip->getLocation($ipAddress);
         }
-        
-        
+
+
         $page->add("ipGeo/index", [
             "geoInfo" => $ipGeoInfo,
             "ip" => $ipAddress,
@@ -80,7 +87,7 @@ class IpGeoController implements ContainerInjectableInterface
      *
      * @return object
      */
-    public function indexActionPost() : object
+    public function indexActionPost(): object
     {
         $ipAddress = $this->di->request->getPost("ipAddress");
 
