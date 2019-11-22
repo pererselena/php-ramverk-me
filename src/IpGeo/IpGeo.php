@@ -36,6 +36,7 @@ class IpGeo
             "city" => "",
             "map" => "",
             "flag" => "",
+            "embed" => "",
         ];
         $allKeys = require ANAX_INSTALL_PATH . "/config/api_keys.php";
         $this->apiKey = $allKeys["ipstack"];
@@ -61,6 +62,7 @@ class IpGeo
                 $this->output["map"] = $this->createMapLink($geoData["longitude"], $geoData["latitude"]);
                 $this->output["long"] = $geoData["longitude"];
                 $this->output["lat"] = $geoData["latitude"];
+                $this->output["embed"] = $this->createEmbedMap($geoData["longitude"], $geoData["latitude"]);
             } else {
                 $this->output["map"] = "Missing";
                 $this->output["long"] = "Missing";
@@ -105,5 +107,24 @@ class IpGeo
     public function createMapLink(string $long, string $lat)
     {
         return "https://www.openstreetmap.org/#map=15/$lat/$long";
+    }
+
+    /**
+     * Create embeded map.
+     *
+     * @return string
+     */
+
+    public function createEmbedMap(string $long, string $lat)
+    {
+        $latOffset = 0.01338;
+        $longOffset = 0.01451;
+        $lat1 = $lat + $latOffset;
+        $lat2 = $lat - $latOffset;
+        $long1 = $long + $longOffset;
+        $long2 = $long - $longOffset;
+        $box = "$long1%2C$lat1%2C$long2%2C$lat2";
+        
+        return $box;
     }
 }
