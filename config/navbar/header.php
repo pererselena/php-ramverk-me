@@ -89,6 +89,11 @@ return [
                         "url" => "geo_ip",
                         "title" => "Geolokalisering av ip-adress.",
                     ],
+                    [
+                        "text" => "Väder",
+                        "url" => "weather",
+                        "title" => "Väderprognos.",
+                    ],
                 ],
             ],
         ],
