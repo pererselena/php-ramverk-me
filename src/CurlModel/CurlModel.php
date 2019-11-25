@@ -27,7 +27,7 @@ class CurlModel
         curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
         $data = curl_exec($curl);
         curl_close($curl);
-
+        
         return json_decode($data, true);
     }
 
