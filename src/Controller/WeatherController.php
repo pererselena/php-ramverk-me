@@ -64,8 +64,7 @@ class WeatherController implements ContainerInjectableInterface
 
         if ($city) {
             # code...
-        }
-        elseif ($ipAddress) {
+        } elseif ($ipAddress) {
             $ipInfo = $this->ipGeo->getLocation($ipAddress);
             $lat = $ipInfo["lat"];
             $long = $ipInfo["long"];
@@ -77,7 +76,20 @@ class WeatherController implements ContainerInjectableInterface
 
                 return $page->render();
             }
+        } else {
+            $req = $this->di->get("request");
+            if (!empty($req->getServer("HTTP_CLIENT_IP"))) {
+                $ipAddress = $req->getServer("HTTP_CLIENT_IP");
+            } elseif (!empty($req->getServer("HTTP_X_FORWARDED_FOR"))) {
+                $ipAddress = $req->getServer("HTTP_X_FORWARDED_FOR");
+            } else {
+                $ipAddress = $req->getServer("REMOTE_ADDR");
+            }
+            $ipInfo = $this->ipGeo->getLocation($ipAddress);
+            $lat = $ipInfo["lat"];
+            $long = $ipInfo["long"];
         }
+
         $weatherInfo = $this->weather->getWeather($lat, $long);
 
         $page->add("weather/index", [
