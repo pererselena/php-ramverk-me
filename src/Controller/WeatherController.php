@@ -63,7 +63,9 @@ class WeatherController implements ContainerInjectableInterface
         $long = $this->di->request->getGet("long");
 
         if ($city) {
-            # code...
+            $res = $this->weather->getCoords($city);
+            $lat = $res["lat"];
+            $long = $res["long"];
         } elseif ($ipAddress) {
             $ipInfo = $this->ipGeo->getLocation($ipAddress);
             $lat = $ipInfo["lat"];

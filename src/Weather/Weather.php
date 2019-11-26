@@ -56,13 +56,22 @@ class Weather implements ContainerInjectableInterface
     {
         $url = "https://nominatim.openstreetmap.org/reverse?format=jsonv2&lat=$lat&lon=$long&email=rutger@rutger.se&limit=1";
         $response = $this->curl->getData($url);
-        if ($response["address"]["city"]) {
-            $this->output["city"] = $response["address"]["city"];
-        } elseif ($response["address"]["village"]) {
-            $this->output["city"] = $response["address"]["village"];
-        } else {
-            $this->output["city"] = $response["display_name"];
-        }
+        $this->output["city"] = $response["display_name"];
+    }
+
+    /**
+     * Get data.
+     *
+     */
+
+    public function getCoords(string $city)
+    {
+        $url = "https://nominatim.openstreetmap.org/?format=json&q=$city&format=json&email=rutger@rutger.se&limit=1";
+        $response = $this->curl->getData($url)[0];
+        return [
+            "long" => $response["lon"],
+            "lat" => $response["lat"],
+        ];
     }
 
     /**
