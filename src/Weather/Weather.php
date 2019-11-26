@@ -119,6 +119,7 @@ class Weather implements ContainerInjectableInterface
         $this->getCity($lat, $long);
         $this->getForecast($lat, $long);
         $this->getHistory($lat, $long);
+        $this->output["embed"] = $this->ipGeo->createEmbedMap($long, $lat);
 
         return $this->output;
     }

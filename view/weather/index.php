@@ -25,9 +25,9 @@ namespace Anax\View;
         <p>Uv-index idag: <?= $weather["currently"]["uvIndex"]; ?></p>
         <p>Geografisk position: <?= $weather["lat"]; ?>, <?= $weather["long"]; ?></p>
         <p>Ort: <?= $weather["city"]; ?></p>
-        <!-- <p>Land: <?= $geoInfo["country"]; ?></p> -->
-        <!-- <div>
-            <iframe width="425" height="350" frameborder="0" scrolling="no" marginheight="0" marginwidth="0" src="https://www.openstreetmap.org/export/embed.html?bbox=<?= $geoInfo["embed"]; ?>&amp;layer=mapnik&amp;marker=<?= $geoInfo["lat"]; ?>%2C<?= $geoInfo["long"]; ?>" style="border: 1px solid black"></iframe><br /><small><a href="https://www.openstreetmap.org/?mlat=<?= $geoInfo["lat"]; ?>&amp;mlon=<?= $geoInfo["long"]; ?>#map=15/<?= $geoInfo["lat"]; ?>/<?= $geoInfo["long"]; ?>">Visa större karta</a></small>
-        </div> -->
+
+        <div>
+            <iframe width="425" height="350" frameborder="0" scrolling="no" marginheight="0" marginwidth="0" src="https://www.openstreetmap.org/export/embed.html?bbox=<?= $weather["embed"]; ?>&amp;layer=mapnik&amp;marker=<?= $weather["lat"]; ?>%2C<?= $weather["long"]; ?>" style="border: 1px solid black"></iframe><br /><small><a href="https://www.openstreetmap.org/?mlat=<?= $weather["lat"]; ?>&amp;mlon=<?= $weather["long"]; ?>#map=15/<?= $weather["lat"]; ?>/<?= $weather["long"]; ?>">Visa större karta</a></small>
+        </div>
     </div>
 <?php endif ?>
