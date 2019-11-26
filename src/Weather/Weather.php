@@ -39,7 +39,6 @@ class Weather implements ContainerInjectableInterface
             "country" => "",
             "city" => "",
             "map" => "",
-            "flag" => "",
             "embed" => "",
         ];
         $allKeys = require ANAX_INSTALL_PATH . "/config/api_keys.php";
@@ -81,7 +80,7 @@ class Weather implements ContainerInjectableInterface
 
     public function getForecast(string $lat, string $long)
     {
-        $url = "https://api.darksky.net/forecast/$this->apiKey/$lat,$long";
+        $url = "https://api.darksky.net/forecast/$this->apiKey/$lat,$long?lang=sv&units=si&exclude=hourly,minutely,alerts,flags";
         $response = $this->curl->getData($url);
         $this->output["currently"] = $response["currently"];
         $this->output["daily"] = $response["daily"];
@@ -101,7 +100,7 @@ class Weather implements ContainerInjectableInterface
         
         for ($i=1; $i < 30; $i++) {
             $unixTime = $time->getTimestamp();
-            $url = "https://api.darkskye.net/forecast/$this->apiKey/$lat,$long,$unixTime?exclude=minutely,hourly,daily,alerts,flags";
+            $url = "https://api.darkskye.net/forecast/$this->apiKey/$lat,$long,$unixTime?exclude=minutely,hourly,daily,alerts,flags&lang=sv&units=si";
             $urls[$i] = $url;
             $time->sub(new \DateInterval('P1D'));
         }
@@ -122,35 +121,5 @@ class Weather implements ContainerInjectableInterface
         $this->getHistory($lat, $long);
 
         return $this->output;
-    }
-
-    /**
-     * Create map link.
-     *
-     * @return string
-     */
-
-    public function createMapLink(string $long, string $lat)
-    {
-        return "https://www.openstreetmap.org/#map=15/$lat/$long";
-    }
-
-    /**
-     * Create embeded map.
-     *
-     * @return string
-     */
-
-    public function createEmbedMap(string $long, string $lat)
-    {
-        $latOffset = 0.01338;
-        $longOffset = 0.01451;
-        $lat1 = $lat + $latOffset;
-        $lat2 = $lat - $latOffset;
-        $long1 = $long + $longOffset;
-        $long2 = $long - $longOffset;
-        $box = "$long1%2C$lat1%2C$long2%2C$lat2";
-
-        return $box;
     }
 }
