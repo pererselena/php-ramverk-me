@@ -59,6 +59,7 @@ class WeatherController implements ContainerInjectableInterface
         $title = "Väderprognos";
         $ipAddress = $this->di->request->getGet("ip");
         $city = $this->di->request->getGet("city");
+        $searchType = $this->di->request->getGet("search_type");
         $lat = $this->di->request->getGet("lat");
         $long = $this->di->request->getGet("long");
 
@@ -99,6 +100,25 @@ class WeatherController implements ContainerInjectableInterface
             "ip" => $ipAddress,
             "title" => $title,
         ]);
+        if ($searchType == "history") {
+            foreach ($weatherInfo["history"] as $day) {
+                $page->add("weather/history", [
+                    "weather" => $day,
+                ]);
+            }
+        } elseif ($searchType == "forecast") {
+            foreach ($weatherInfo["daily"]["data"] as $day) {
+                $page->add("weather/weather", [
+                    "weather" => $day,
+                ]);
+            }
+        } elseif ($searchType == "current") {
+            $page->add("weather/index", [
+                "weather" => $weatherInfo,
+            ]);
+        }
+        
+        
 
         return $page->render();
     }
@@ -112,12 +132,13 @@ class WeatherController implements ContainerInjectableInterface
      */
     public function indexActionPost(): object
     {
+        $searchType = $this->di->request->getPost("search_type");
         $city = $this->di->request->getPost("city");
         if ($city) {
-            return $this->di->response->redirect("weather?city=$city");
+            return $this->di->response->redirect("weather?city=$city&search_type=$searchType");
         }
         $ipAddress = $this->di->request->getPost("ipAddress");
 
-        return $this->di->response->redirect("weather?ip=$ipAddress");
+        return $this->di->response->redirect("weather?ip=$ipAddress&search_type=$searchType");
     }
 }
