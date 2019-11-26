@@ -100,13 +100,17 @@ class Weather implements ContainerInjectableInterface
         
         for ($i=1; $i < 30; $i++) {
             $unixTime = $time->getTimestamp();
-            $url = "https://api.darkskye.net/forecast/$this->apiKey/$lat,$long,$unixTime?exclude=minutely,hourly,daily,alerts,flags&lang=sv&units=si";
+            $url = "https://api.darksky.net/forecast/$this->apiKey/$lat,$long,$unixTime?exclude=minutely,hourly,daily,alerts,flags&lang=sv&units=si";
             $urls[$i] = $url;
             $time->sub(new \DateInterval('P1D'));
         }
 
         $response = $this->curl->getMultiData($urls);
-        $this->output["history"] = $response;
+        $out = [];
+        foreach ($response as $day) {
+            $out[] = $day["currently"];
+        }
+        $this->output["history"] = $out;
     }
 
     /**
