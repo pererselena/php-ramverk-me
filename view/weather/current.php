@@ -5,11 +5,11 @@ namespace Anax\View;
 ?>
 
 <?php if ($weather) : ?>
-    <div>
+    <div class="weather-card">
+        <h4>Ort: <?= $weather["city"]; ?></h4>
         <p>Väder idag: <?= $weather["currently"]["summary"]; ?></p>
-        <p>Temperatur idag: <?= $weather["currently"]["temperature"]; ?></p>
+        <p>Temperatur idag: <?= $weather["currently"]["temperature"]; ?>&ordm;C</p>
         <p>Vindhastighet idag: <?= $weather["currently"]["windSpeed"]; ?></p>
         <p>Uv-index idag: <?= $weather["currently"]["uvIndex"]; ?></p>
         <p>Geografisk position: <?= $weather["lat"]; ?>, <?= $weather["long"]; ?></p>
-        <p>Ort: <?= $weather["city"]; ?></p>
-<?php endif ?>
+    <?php endif ?>
