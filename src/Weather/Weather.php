@@ -40,6 +40,7 @@ class Weather implements ContainerInjectableInterface
             "city" => "",
             "map" => "",
             "embed" => "",
+            "matched" => true,
         ];
         $allKeys = require ANAX_INSTALL_PATH . "/config/api_keys.php";
         $this->apiKey = $allKeys["darkSky"];
@@ -55,7 +56,12 @@ class Weather implements ContainerInjectableInterface
     {
         $url = "https://nominatim.openstreetmap.org/reverse?format=jsonv2&lat=$lat&lon=$long&email=rutger@rutger.se&limit=1";
         $response = $this->curl->getData($url);
-        $this->output["city"] = $response["display_name"];
+        if (isset($response["display_name"])) {
+            $this->output["city"] = $response["display_name"];
+        } else {
+            $this->output["matched"] = false;
+        }
+        
     }
 
     /**
@@ -66,11 +72,19 @@ class Weather implements ContainerInjectableInterface
     public function getCoords(string $city)
     {
         $url = "https://nominatim.openstreetmap.org/?format=json&q=$city&format=json&email=rutger@rutger.se&limit=1";
-        $response = $this->curl->getData($url)[0];
-        return [
-            "long" => $response["lon"],
-            "lat" => $response["lat"],
-        ];
+        if ($this->curl->getData($url)) {
+            $response = $this->curl->getData($url)[0];
+            return [
+                "long" => $response["lon"],
+                "lat" => $response["lat"],
+            ];
+        } else {
+            $this->output["matched"] = false;
+            return [
+                "long" => "Missing",
+                "lat" => "Missing",
+            ];
+        }
     }
 
     /**
@@ -82,10 +96,15 @@ class Weather implements ContainerInjectableInterface
     {
         $url = "https://api.darksky.net/forecast/$this->apiKey/$lat,$long?lang=sv&units=si&exclude=hourly,minutely,alerts,flags";
         $response = $this->curl->getData($url);
-        $this->output["currently"] = $response["currently"];
-        $this->output["daily"] = $response["daily"];
-        $this->output["long"] = $response["longitude"];
-        $this->output["lat"] = $response["latitude"];
+        if (isset($response["currently"])) {
+            $this->output["currently"] = $response["currently"];
+            $this->output["daily"] = $response["daily"];
+            $this->output["long"] = $response["longitude"];
+            $this->output["lat"] = $response["latitude"];
+        } else {
+            $this->output["matched"] = false;
+        }
+        
     }
 
     /**
@@ -107,10 +126,14 @@ class Weather implements ContainerInjectableInterface
 
         $response = $this->curl->getMultiData($urls);
         $out = [];
-        foreach ($response as $day) {
-            $out[] = $day["currently"];
+        if (isset($response[0]["error"])) {
+            $this->output["matched"] = false;
+        } else {
+            foreach ($response as $day) {
+                $out[] = $day["currently"];
+            }
+            $this->output["history"] = $out;
         }
-        $this->output["history"] = $out;
     }
 
     /**
@@ -118,11 +141,14 @@ class Weather implements ContainerInjectableInterface
      *
      */
 
-    public function getWeather(string $lat, string $long)
+    public function getWeather(string $lat, string $long, string $searchType)
     {
         $this->getCity($lat, $long);
-        $this->getForecast($lat, $long);
-        $this->getHistory($lat, $long);
+        if ($searchType == "currently" || $searchType == "forecast") {
+            $this->getForecast($lat, $long);
+        } else {
+            $this->getHistory($lat, $long);
+        }
         $this->output["embed"] = $this->ipGeo->createEmbedMap($long, $lat);
 
         return $this->output;

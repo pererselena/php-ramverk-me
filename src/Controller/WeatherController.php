@@ -71,10 +71,12 @@ class WeatherController implements ContainerInjectableInterface
             $ipInfo = $this->ipGeo->getLocation($ipAddress);
             $lat = $ipInfo["lat"];
             $long = $ipInfo["long"];
-            if ($ipInfo["isValid"] == false || $lat == "Missin") {
+            if ($ipInfo["isValid"] == false || $lat == "Missing") {
                 $page->add("weather/index", [
                     "err" => "Ip adress saknar platsinformation.",
                     "title" => $title,
+                    "ip" => $ipAddress,
+                    "weather" => "",
                 ]);
 
                 return $page->render();
@@ -92,8 +94,29 @@ class WeatherController implements ContainerInjectableInterface
             $lat = $ipInfo["lat"];
             $long = $ipInfo["long"];
         }
+        if ($lat == "Missing") {
+            $page->add("weather/index", [
+                "err" => "Oops, platsinformation saknas",
+                "title" => $title,
+                "ip" => $ipAddress,
+                "weather" => "",
+            ]);
 
-        $weatherInfo = $this->weather->getWeather($lat, $long);
+            return $page->render();
+        }
+
+        $weatherInfo = $this->weather->getWeather($lat, $long, $searchType);
+
+        if ($weatherInfo["matched"] == false) {
+            $page->add("weather/index", [
+                "err" => "Oops, väderprognos saknas",
+                "title" => $title,
+                "ip" => $ipAddress,
+                "weather" => "",
+            ]);
+
+            return $page->render();
+        }
 
         $page->add("weather/index", [
             "weather" => $weatherInfo,
@@ -108,8 +131,8 @@ class WeatherController implements ContainerInjectableInterface
             $page->add("weather/weather", [
                 "weather" => $weatherInfo["daily"]["data"],
             ]);
-        } elseif ($searchType == "current") {
-            $page->add("weather/index", [
+        } elseif ($searchType == "currently") {
+            $page->add("weather/current", [
                 "weather" => $weatherInfo,
             ]);
         }
