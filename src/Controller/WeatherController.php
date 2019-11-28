@@ -160,4 +160,20 @@ class WeatherController implements ContainerInjectableInterface
 
         return $this->di->response->redirect("weather?ip=$ipAddress&search_type=$searchType");
     }
+
+    /**
+     * This sample method action it the handler for route:
+     * GET mountpoint/create
+     *
+     * @return object
+     */
+    public function docActionGet(): object
+    {
+        $page = $this->di->get("page");
+        $title = "Väder API dokumentation";
+        $page->add("weather/doc", [
+            "title" => $title,
+        ]);
+        return $page->render();
+    }
 }
