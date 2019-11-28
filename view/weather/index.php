@@ -39,6 +39,7 @@ namespace Anax\View;
 <?php elseif ($weather) : ?>
     <div>
         <a href="json_weather?ip=8.8.8.8&search_type=currently">API svar</a>
+        <a href="weather/doc">API dokumentation</a>
         <p>Ip: <?= $ip; ?></p>
         <div>
             <iframe class="map" width="425" height="350" frameborder="0" scrolling="no" marginheight="0" marginwidth="0" src="https://www.openstreetmap.org/export/embed.html?bbox=<?= $weather["embed"]; ?>&amp;layer=mapnik&amp;marker=<?= $weather["lat"]; ?>%2C<?= $weather["long"]; ?>" style="border: 1px solid black"></iframe><br /><small><a href="https://www.openstreetmap.org/?mlat=<?= $weather["lat"]; ?>&amp;mlon=<?= $weather["long"]; ?>#map=15/<?= $weather["lat"]; ?>/<?= $weather["long"]; ?>">Visa större karta</a></small>
