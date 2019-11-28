@@ -5610,7 +5610,7 @@ fieldset {
 .cards:hover {
   background-color: white;
   color: #413e3e;
-  transition: width 2s;
+  transition: 2s;
 }
 .card {
   padding: 0.5em;
@@ -5622,6 +5622,10 @@ fieldset {
   color: #3bbffe;
   border-bottom: 0px;
   font-size: 2em;
+}
+.map {
+  border: 1px solid #d7d3d3;
+  width: 100%;
 }
 /** --------------------------------------------------------------
  * Flash

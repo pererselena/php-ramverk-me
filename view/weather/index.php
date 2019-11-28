@@ -5,7 +5,7 @@ namespace Anax\View;
 ?>
 
 <h2><?= $title ?></h2>
-<h3>Söka väderprognos</h3>
+<h3>Sök väderprognos</h3>
 <form class="ip_verify" method="post">
     <label>Ip adress:<br>
         <input type="text" name="ipAddress" value="<?= $ip ?>" />
@@ -16,17 +16,17 @@ namespace Anax\View;
     </label>
     <br>
     <label>
-        <input type="radio" name="search_type" value="history" />
+        <input type="radio" name="search_type" value="history" required />
         Historik
     </label>
     <br>
     <label>
-        <input type="radio" name="search_type" value="forecast" />
+        <input type="radio" name="search_type" value="forecast" required />
         Forecast
     </label>
     <br>
     <label>
-        <input type="radio" name="search_type" value="currently" />
+        <input type="radio" name="search_type" value="currently" required />
         Väder idag
     </label>
     <br>
@@ -34,7 +34,9 @@ namespace Anax\View;
         <input class="buttons_input" type="submit" name="weather" value="Söka" />
     </p>
 </form>
-<?php if ($weather) : ?>
+<?php if (isset($err)) : ?>
+    <p class="validation-failed"><?= $err; ?></p>
+<?php elseif ($weather) : ?>
     <div>
         <a href="json_geo/?ip=<?= $ip; ?>">API svar</a>
         <p>Ip: <?= $ip; ?></p>
