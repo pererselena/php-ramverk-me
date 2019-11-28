@@ -5585,6 +5585,45 @@ fieldset {
   min-height: 440px;
 }
 /** --------------------------------------------------------------
+ * Weather card
+ */
+/**
+ * Variables used in module
+ */
+/**
+ * Settings
+ */
+.weather-card {
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: column;
+}
+.cards {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  background-color: #413e3e;
+  color: #ffffff;
+  border: 1px solid #9e9e9e;
+  height: 17em;
+}
+.cards:hover {
+  background-color: white;
+  color: #413e3e;
+  transition: width 2s;
+}
+.card {
+  padding: 0.5em;
+}
+.card-left {
+  width: 15em;
+}
+.card-heading {
+  color: #3bbffe;
+  border-bottom: 0px;
+  font-size: 2em;
+}
+/** --------------------------------------------------------------
  * Flash
  */
 .region-flash img {
