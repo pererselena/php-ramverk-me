@@ -12,11 +12,12 @@ namespace Anax\View;
                 <div class="card-left card">
                     <h5 class="card-heading"><?= date("Y-m-d", $day["time"]); ?></h5>
                     <p><?= $day["summary"]; ?></p>
+                    <img src="image/weather/<?= $day["icon"]; ?>.png?w=100" alt="<?= $day["icon"]; ?>">
                 </div>
                 <div class="card-right card">
-                    <p>min: <?= $day["temperatureMin"]; ?>&ordm;C</p>
-                    <p>max: <?= $day["temperatureMax"]; ?>&ordm;C</p>
-                    <p>Vind:<?= $day["windSpeed"]; ?>m/s</p>
+                    <p>min: <?= round($day["temperatureMin"]); ?>&ordm;C</p>
+                    <p>max: <?= round($day["temperatureMax"]); ?>&ordm;C</p>
+                    <p>Vind:<?= round($day["windSpeed"]); ?>m/s</p>
                     <p>Uv-index: <?= $day["uvIndex"]; ?></p>
                 </div>
 
