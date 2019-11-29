@@ -126,10 +126,12 @@ class WeatherController implements ContainerInjectableInterface
         if ($searchType == "history") {
             $page->add("weather/history", [
                 "weather" => $weatherInfo["history"],
+                "city" => $weatherInfo["city"],
             ]);
         } elseif ($searchType == "forecast") {
             $page->add("weather/weather", [
                 "weather" => $weatherInfo["daily"]["data"],
+                "city" => $weatherInfo["city"],
             ]);
         } elseif ($searchType == "currently") {
             $page->add("weather/current", [
