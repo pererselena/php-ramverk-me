@@ -141,12 +141,12 @@ class Weather implements ContainerInjectableInterface
      *
      */
 
-    public function getWeather(string $lat, string $long, string $searchType)
+    public function getWeather(string $lat, string $long, $searchType)
     {
         $this->getCity($lat, $long);
         if ($searchType == "currently" || $searchType == "forecast") {
             $this->getForecast($lat, $long);
-        } else {
+        } elseif ($searchType == "history") {
             $this->getHistory($lat, $long);
         }
         $this->output["embed"] = $this->ipGeo->createEmbedMap($long, $lat);
