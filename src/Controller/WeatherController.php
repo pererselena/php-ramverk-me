@@ -71,16 +71,6 @@ class WeatherController implements ContainerInjectableInterface
             $ipInfo = $this->ipGeo->getLocation($ipAddress);
             $lat = $ipInfo["lat"];
             $long = $ipInfo["long"];
-            if ($ipInfo["isValid"] == false || $lat == "Missing") {
-                $page->add("weather/index", [
-                    "err" => "Ip adress saknar platsinformation.",
-                    "title" => $title,
-                    "ip" => $ipAddress,
-                    "weather" => "",
-                ]);
-
-                return $page->render();
-            }
         } else {
             $req = $this->di->get("request");
             if (!empty($req->getServer("HTTP_CLIENT_IP"))) {
@@ -106,17 +96,6 @@ class WeatherController implements ContainerInjectableInterface
         }
 
         $weatherInfo = $this->weather->getWeather($lat, $long, $searchType);
-
-        if ($weatherInfo["matched"] == false) {
-            $page->add("weather/index", [
-                "err" => "Oops, väderprognos saknas",
-                "title" => $title,
-                "ip" => $ipAddress,
-                "weather" => "",
-            ]);
-
-            return $page->render();
-        }
 
         $page->add("weather/index", [
             "weather" => $weatherInfo,

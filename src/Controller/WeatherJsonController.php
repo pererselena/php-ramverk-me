@@ -68,16 +68,6 @@ class WeatherJsonController implements ContainerInjectableInterface
             $ipInfo = $this->ipGeo->getLocation($ipAddress);
             $lat = $ipInfo["lat"];
             $long = $ipInfo["long"];
-            if ($ipInfo["isValid"] == false || $lat == "Missing") {
-                $json = [
-                    "err" => "Ip adress saknar platsinformation.",
-                    "title" => $title,
-                    "ip" => $ipAddress,
-                    "weather" => "",
-                ];
-
-                return [$json];
-            }
         } else {
             $req = $this->di->get("request");
             if (!empty($req->getServer("HTTP_CLIENT_IP"))) {
@@ -104,17 +94,6 @@ class WeatherJsonController implements ContainerInjectableInterface
 
         $weatherInfo = $this->weather->getWeather($lat, $long, $searchType);
 
-        if ($weatherInfo["matched"] == false) {
-            $json = [
-                "err" => "Oops, väderprognos saknas",
-                "title" => $title,
-                "ip" => $ipAddress,
-                "weather" => "",
-            ];
-
-            return [$json];
-        }
-
         $json = [
             "weather" => $weatherInfo,
             "ip" => $ipAddress,
@@ -122,31 +101,14 @@ class WeatherJsonController implements ContainerInjectableInterface
         ];
         if ($searchType == "history") {
             $json["weather"] = $weatherInfo["history"];
+            $json["city"] = $weatherInfo["city"];
         } elseif ($searchType == "forecast") {
             $json["weather"] = $weatherInfo["daily"]["data"];
+            $json["city"] = $weatherInfo["city"];
         } elseif ($searchType == "currently") {
             $json["weather"] = $weatherInfo;
         }
 
         return [$json];
-    }
-
-
-    /**
-     * This sample method action it the handler for route:
-     * POST mountpoint/create
-     *
-     * @return object
-     */
-    public function indexActionPost(): object
-    {
-        $searchType = $this->di->request->getPost("search_type");
-        $city = $this->di->request->getPost("city");
-        if ($city) {
-            return $this->di->response->redirect("weather?city=$city&search_type=$searchType");
-        }
-        $ipAddress = $this->di->request->getPost("ipAddress");
-
-        return $this->di->response->redirect("weather?ip=$ipAddress&search_type=$searchType");
     }
 }
