@@ -14,4 +14,5 @@ namespace Anax\View;
         <p>Vindhastighet idag: <?= round($weather["currently"]["windSpeed"]); ?>m/s</p>
         <p>Uv-index idag: <?= $weather["currently"]["uvIndex"]; ?></p>
         <p>Geografisk position: <?= $weather["lat"]; ?>, <?= $weather["long"]; ?></p>
-    <?php endif ?>
+    </div>
+<?php endif ?>

@@ -42,36 +42,36 @@ class CurlModel
         $multiCurl = array();
         $outputArr = array();
         //create the multiple cURL handle
-        $mh = curl_multi_init();
+        $multiHandler = curl_multi_init();
 
         foreach ($links as $url) {
-            $ch1 = curl_init();
+            $curlHandler = curl_init();
 
             // set URL and other appropriate options
-            curl_setopt($ch1, CURLOPT_URL, $url);
-            curl_setopt($ch1, CURLOPT_HEADER, 0);
-            curl_setopt($ch1, CURLOPT_RETURNTRANSFER, true);
+            curl_setopt($curlHandler, CURLOPT_URL, $url);
+            curl_setopt($curlHandler, CURLOPT_HEADER, 0);
+            curl_setopt($curlHandler, CURLOPT_RETURNTRANSFER, true);
 
             //add the two handles
-            curl_multi_add_handle($mh, $ch1);
-            array_push($multiCurl, $ch1);
+            curl_multi_add_handle($multiHandler, $curlHandler);
+            array_push($multiCurl, $curlHandler);
         }
 
         //execute the multi handle
         $active = null;
         do {
-            curl_multi_exec($mh, $active);
+            curl_multi_exec($multiHandler, $active);
         } while ($active);
 
         //close the handles
-        foreach ($multiCurl as $ch) {
-            curl_multi_remove_handle($mh, $ch);
+        foreach ($multiCurl as $handler) {
+            curl_multi_remove_handle($multiHandler, $handler);
         }
 
-        curl_multi_close($mh);
+        curl_multi_close($multiHandler);
 
-        foreach ($multiCurl as $ch) {
-            $data = curl_multi_getcontent($ch);
+        foreach ($multiCurl as $handler) {
+            $data = curl_multi_getcontent($handler);
             array_push($outputArr, json_decode($data, true));
         }
 

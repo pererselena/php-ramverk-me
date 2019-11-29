@@ -10,6 +10,8 @@ use Anax\Commons\ContainerInjectableInterface;
 use Anax\Commons\ContainerInjectableTrait;
 
 use Anax\IpGeo\IpGeo;
+use DateInterval;
+use DateTime;
 
 /**
  * Showing off a standard class with methods and properties.
@@ -61,7 +63,6 @@ class Weather implements ContainerInjectableInterface
         } else {
             $this->output["matched"] = false;
         }
-        
     }
 
     /**
@@ -104,7 +105,6 @@ class Weather implements ContainerInjectableInterface
         } else {
             $this->output["matched"] = false;
         }
-        
     }
 
     /**
@@ -114,14 +114,14 @@ class Weather implements ContainerInjectableInterface
 
     public function getHistory(string $lat, string $long)
     {
-        $time = new \DateTime();
+        $time = new DateTime();
         $urls = array();
         
         for ($i=1; $i < 30; $i++) {
             $unixTime = $time->getTimestamp();
             $url = "https://api.darksky.net/forecast/$this->apiKey/$lat,$long,$unixTime?exclude=minutely,hourly,daily,alerts,flags&lang=sv&units=si";
             $urls[$i] = $url;
-            $time->sub(new \DateInterval('P1D'));
+            $time->sub(new DateInterval('P1D'));
         }
 
         $response = $this->curl->getMultiData($urls);

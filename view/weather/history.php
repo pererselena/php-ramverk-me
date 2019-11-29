@@ -7,7 +7,8 @@ namespace Anax\View;
 <?php if ($weather) : ?>
     <h4>Väderhistorik för 30 dagar</h4>
     <div class="weather-card">
-        <?php foreach ($weather as $day) :; ?>
+        <h4>Ort: <?= $city; ?></h4>
+        <?php foreach ($weather as $day) : ?>
             <div class="cards">
                 <div class="card-left card">
                     <h5 class="card-heading"><?= date("Y-m-d", $day["time"]); ?></h5>
