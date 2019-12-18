@@ -35,16 +35,16 @@ endif;
 <table>
     <tr>
         <th>Id</th>
-        <th>Column1</th>
-        <th>Column2</th>
+        <th>Title</th>
+        <th>Author</th>
     </tr>
     <?php foreach ($items as $item) : ?>
     <tr>
         <td>
             <a href="<?= url("book/update/{$item->id}"); ?>"><?= $item->id ?></a>
         </td>
-        <td><?= $item->column1 ?></td>
-        <td><?= $item->column2 ?></td>
+        <td><?= $item->title ?></td>
+        <td><?= $item->author ?></td>
     </tr>
     <?php endforeach; ?>
 </table>
