@@ -95,6 +95,11 @@ return [
                         "url" => "weather",
                         "title" => "Väderprognos.",
                     ],
+                    [
+                        "text" => "Bok",
+                        "url" => "book",
+                        "title" => "Bok.",
+                    ],
                 ],
             ],
         ],
