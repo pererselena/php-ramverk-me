@@ -5628,6 +5628,28 @@ fieldset {
   width: 100%;
 }
 /** --------------------------------------------------------------
+ * tables
+ */
+/**
+ * Variables used in module
+ */
+/**
+ * Settings
+ */
+table {
+  border-collapse: collapse;
+  width: 100%;
+}
+th,
+td {
+  padding: 8px;
+  text-align: left;
+  border-bottom: 1px solid #ddd;
+}
+.book-image {
+  width: 150px;
+}
+/** --------------------------------------------------------------
  * Flash
  */
 .region-flash img {

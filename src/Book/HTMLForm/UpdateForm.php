@@ -46,6 +46,50 @@ class UpdateForm extends FormModel
                     "value" => $book->author,
                 ],
 
+                "pages" => [
+                    "type" => "number",
+                    "validation" => ["not_empty"],
+                    "value" => $book->pages,
+                ],
+
+                "published" => [
+                    "type"        => "date",
+                    "value" => $book->published,
+                ],
+
+                "image" => [
+                    "type"        => "url",
+                    "value" => $book->image,
+                ],
+
+                "category" => [
+                    "type"        => "select-multiple",
+                    "label"       => "Select one or more category:",
+                    "size"        => 6,
+                    "options"     => [
+                        "art" => "art & photographi",
+                        "biography" => "biography",
+                        "children"  => "children",
+                        "craft & hobbies"   => "hobbies",
+                        "crime" => "crime",
+                        "thriller" => "thriller",
+                        "fiction" => "fiction",
+                        "food" => "food",
+                        "anime" => "anime",
+                        "history" => "history",
+                        "drama" => "drama",
+                        "poetry" => "poetry",
+                        "fantasy" => "fantasy",
+                        "horror" => "horror",
+                        "science" => "science",
+                        "health" => "health",
+                        "humour" => "humour",
+                        "computing" => "computing",
+                        "education" => "education",
+                    ],
+                    "checked"   => [$book->category],
+                ],
+
                 "submit" => [
                     "type" => "submit",
                     "value" => "Save",
@@ -91,6 +135,10 @@ class UpdateForm extends FormModel
         $book->find("id", $this->form->value("id"));
         $book->title = $this->form->value("title");
         $book->author = $this->form->value("author");
+        $book->pages = $this->form->value("pages");
+        $book->published = $this->form->value("published");
+        $book->image = $this->form->value("image");
+        $book->category = implode(", ", $this->form->value("category"));
         $book->save();
         return true;
     }
