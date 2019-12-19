@@ -9,7 +9,7 @@
     },
     "require": {
         "anax/anax-ramverk1-me": "^1.0.0",
-        "elpr/anax-weather-module": ">=1.0.1",
+        "elpr/anax-weather-module": "^2.0.0",
         "anax/htmlform": "^2.0",
         "anax/database-active-record": "^2.0"
     },

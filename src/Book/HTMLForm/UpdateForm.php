@@ -109,7 +109,6 @@ class UpdateForm extends FormModel
      * Get details on item to load form with.
      *
      * @param integer $id get details on item with id.
-     * 
      * @return Book
      */
     public function getItemDetails($id) : object
